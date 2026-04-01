@@ -45,7 +45,7 @@ sklearn_clone/
 - `Clone the repository:`
 
 ```bash
-git clone https://github.com/your-username/sklearn-clone.git
+https://github.com/Rustam-Singh-Bhadouriya/sklearn_clone.git
 cd sklearn-clone
 ```
 
