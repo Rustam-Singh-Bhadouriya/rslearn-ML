@@ -1,5 +1,5 @@
 from linear_model.LinearRegression import SimpleLinearRegression # Importing Regression
-from preprocessing.Scaler import MinMaxScaler # Importing Scaler
+from preprocessing._scaler import MinMaxScaler # Importing Scaler
 import numpy as np
 from sklearn.linear_model import LinearRegression
 
