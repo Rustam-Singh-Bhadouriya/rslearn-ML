@@ -225,7 +225,10 @@ def mse(
     if y_true.shape != y_pred.shape:
         raise ValueError(f"Shape Mismatch Error {(y_true.shape, y_pred.shape)}")
     
-    if y_true.shape[1] == 1 or y_true.ndim == 1:
+    if y_true.ndim == 1:
+        return mse_helper_1d(y_true, y_pred)
+    
+    if y_true.shape[1] == 1:
         return mse_helper_1d(y_true, y_pred)
     
     output_errors = mse_helper_2D(y_true, y_pred)
@@ -257,7 +260,7 @@ def mse_helper_1d(y_true: np.array, y_pred: np.array):
     n = len(y_true)
 
     output_error = np.sum((y_true - y_pred)**2) / n
-
+    print(output_error)
     return float(output_error)
 
 
@@ -416,7 +419,10 @@ def mae(
     if y_true.shape != y_pred.shape:
         raise ValueError(f"Shape Mismatch Error {(y_true.shape, y_pred.shape)}")
     
-    if y_true.shape[1] == 1 or y_true.ndim == 1:
+    if y_true.ndim == 1:
+        return mae_helper_1d(y_true, y_pred)
+
+    if  y_true.shape[1] == 1:
         return mae_helper_1d(y_true, y_pred)
     
     output_errors = mae_helper_2D(y_true, y_pred)
