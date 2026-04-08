@@ -113,6 +113,11 @@ git clone https://github.com/Rustam-Singh-Bhadouriya/sklearn_clone.git
 cd rslearn
 ```
 
+### Install Usable Library
+``` bash
+pip install rslearn-ML
+```
+
 ### Install dependencies
 
 ```bash
