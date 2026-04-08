@@ -1,3 +1,3 @@
-from preprocessing._scaler import MinMaxScaler, StandardScaler
+from ._scaler import MinMaxScaler, StandardScaler
 
 __all__ = ["MinMaxScaler", "StandardScaler"]
