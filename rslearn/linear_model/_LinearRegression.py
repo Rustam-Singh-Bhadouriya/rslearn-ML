@@ -104,9 +104,9 @@ class LinearRegression():
 
         Input Param*
         __________
-        X = Data to Train 1D array, Dtype = np.array   
+        X = Data to Train 1D or 2D array, Dtype = np.array   
 
-        Y = True value a.k.a. original prediction 1D array, Dtype = np.array  
+        Y = True value a.k.a. original prediction 1D or 2D array, Dtype = np.array  
 
         max_itr = loop to update weight and bias, Dtype = int and default = 18000  | No Input need  
 
