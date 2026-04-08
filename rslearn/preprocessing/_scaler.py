@@ -1,12 +1,79 @@
+"""
+preprocessing/Scalers
+----------------------
+
+It Contains The Most Used Scaler to Standarize Data for gradient Based Algorithams  
+It is Recommandated to Use before LinearRegression or Logistic Regression for Better Performance  
+
+Features  
+- `MinMaxScaler`  
+- `StandardScaler`  
+
+`MinMaxScaler` Best For Large Data  
+`StandardScaler` Best For Small Data  
+
+Example
+--------
+
+>>> from rslearn.preprocessing import StandardScaler, MinMaxScaler
+>>> Scaler = StandardScaler()
+>>> X_Scaled = Scaler.fit_transform(X) # Transformation
+>>> X_inverse = Scaler.inverse_transform(X_Scaled) # Inverse
+"""
+
 import numpy as np
 
 class MinMaxScaler:
+
+    """
+        MinMaxScaler - Best For Large Data  
+
+        A feature scaling utility that standardizes data by removing the min max values 
+        and scaling to unit variance.
+
+        This transformation is commonly used to normalize features so that they
+        contribute equally to model training, especially for gradient-based
+        algorithms.
+
+        Methods
+        -------
+        fit(data: np.ndarray) -> None
+            Computes the mean and standard deviation of the input data.
+
+        transform(data: np.ndarray) -> np.ndarray
+            Transforms the data using the previously computed mean and standard deviation.
+
+        fit_transform(data: np.ndarray) -> np.ndarray
+            Fits the scaler to the data, then returns the transformed result.
+        
+        Examples
+        --------
+        >>> from rslearn.preprocessing import MinMaxScaler
+        >>> Scaler = MinMaxScaler()
+        >>> X_Scaled = Scaler.fit(np.array([10, 20, 30])) # List Also works, np.array prefered
+        >>> X_original = Scaler.inverse_transform(X_Scaled)
+    """
+
     def __init__(self, feature_range=(0, 1)):
         self.min_v = None
         self.max_v = None
         self.a, self.b = feature_range
 
     def fit(self, X):
+        """
+        Standardize the input data using the computed statistics.
+
+        Parameters
+        ----------
+        data : np.ndarray
+            Input array of shape (n_samples,) or (n_samples, n_features).
+
+        Returns
+        -------
+        np.ndarray
+            Scaled data with zero mean and unit variance.
+        """
+
         X = np.array(X)
 
         # if 1D → convert to 2D column
@@ -17,6 +84,20 @@ class MinMaxScaler:
         self.max_v = np.max(X, axis=0)
 
     def transform(self, X):
+        """
+        Standardize the input data using the computed statistics.
+
+        Parameters
+        ----------
+        data : np.ndarray
+            Input array of shape (n_samples,) or (n_samples, n_features).
+
+        Returns
+        -------
+        np.ndarray
+            Scaled data with zero mean and unit variance.
+        """
+
         X = np.array(X)
         is_1d = False
 
@@ -36,10 +117,38 @@ class MinMaxScaler:
         return X_scaled
 
     def fit_transform(self, X):
+        """
+        Fit to the data, then transform it.
+
+        Parameters
+        ----------
+        data : np.ndarray
+            Input array of shape (n_samples,) or (n_samples, n_features).
+
+        Returns
+        -------
+        np.ndarray
+            Scaled data  
+        """
+
         self.fit(X)
         return self.transform(X)
 
     def inverse_transform(self, X):
+        """
+        Revert standardized data back to original scale.
+
+        Parameters
+        ----------
+        data : np.ndarray
+            Scaled data of shape (n_samples,) or (n_samples, n_features).
+
+        Returns
+        -------
+        np.ndarray
+            Original data before scaling.
+        """
+
         X = np.array(X)
         is_1d = False
 
@@ -54,7 +163,6 @@ class MinMaxScaler:
 
         return X_orig
 
-import numpy as np
 
 class StandardScaler:
     def __init__(self) -> None:

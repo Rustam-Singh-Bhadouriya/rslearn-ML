@@ -6,8 +6,8 @@ Currently, it includes:
 
 - **R² Score (`r2_score`)**
 - **mean_squared_error (`mse`)**
-- MAE *(coming soon)*
-- RMSE *(coming soon)*
+- **Mean Absolute Error (`mse`)** 
+- **Root Mean Squared Error (`rmse`)**
 
 
 ---

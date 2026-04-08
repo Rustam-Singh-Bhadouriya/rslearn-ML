@@ -26,6 +26,7 @@ All notable changes to this project will be documented in this file.
 * Modular folder structure
 * Internal documentation for each module
 * CHANGELOG.md
+* Doc Strings
 
 ### Notes
 

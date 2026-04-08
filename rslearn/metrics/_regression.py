@@ -7,15 +7,15 @@ This File Contains All Important and most used error comupation algorithams,
 like  
 - r2_score  
 - MAE  
-- MSE  
-- RMSE  
+- MSE   
+- RMSE   
 
 All Methords
 -------------
-- r2_score  
-- MAE (Coming Soon)  
-- MSE (Coming Soon)  
-- RMSE (Coming Soon)  
+- `r2_score`    
+- `MAE`  
+- `MSE`   
+- `RMSE`  
 """
 
 # ========================== r2_score =========================
