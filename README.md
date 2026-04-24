@@ -8,6 +8,13 @@ This project is focused on deeply understanding ML algorithms by implementing th
 
 ## 🚀 Features
 
+### Latest (In metrics/_classification.py): 
+* Confusion Metrics
+* Recall
+* Precision
+* F1 Score
+
+
 ### 📊 Linear Models
 
 * Linear Regression (Single & Multi-feature)

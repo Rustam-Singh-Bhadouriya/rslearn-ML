@@ -1,4 +1,5 @@
 import numpy as np
+from ._base import convert_array, check_multioutput
 
 """
 `_regression.py`, By: Rustam Singh
@@ -71,14 +72,9 @@ def r2_score(y_true, y_pred, multi_output="uniform_average", weights=None):
     >>> r2_score(y_true, y_pred, multi_output="weighted", weights=[0.6, 0.4])
     """
 
-    valid_options = {"uniform_average", "weighted", "raw_values"}
-    if multi_output not in valid_options:
-        raise ValueError(
-            f"Invalid multi_output={multi_output}. Supported: {valid_options}"
-        )
+    check_multioutput(parameter=multi_output)
 
-    y_true = np.asarray(y_true, dtype=float)
-    y_pred = np.asarray(y_pred, dtype=float)
+    y_true, y_pred = convert_array(y_true, y_pred)
 
     if y_true.shape != y_pred.shape:
         raise ValueError(f"Shape mismatch: {y_true.shape} vs {y_pred.shape}")
@@ -209,18 +205,13 @@ def mse(
     >>> print(mse(y_true, y_pred, multi_output="raw_values"))
     """
     
-    valid_options = {"uniform_average", "weighted", "raw_values"}
-    if multi_output not in valid_options:
-        raise ValueError(
-            f"Invalid multi_output={multi_output}. Supported: {valid_options}"
-        )
+    check_multioutput(parameter=multi_output)
     
 
 
     # Formula = 1/n sum((y_true - y_pred)**2)
 
-    y_true = np.asarray(y_true, dtype=float) # Changing to np.array
-    y_pred = np.asarray(y_pred, dtype=float)
+    y_true, y_pred = convert_array(y_true, y_pred)
 
     if y_true.shape != y_pred.shape:
         raise ValueError(f"Shape Mismatch Error {(y_true.shape, y_pred.shape)}")
@@ -402,18 +393,13 @@ def mae(
     >>> print(mae(y_true, y_pred, multi_output="raw_values"))
     """
     
-    valid_options = {"uniform_average", "weighted", "raw_values"}
-    if multi_output not in valid_options:
-        raise ValueError(
-            f"Invalid multi_output={multi_output}. Supported: {valid_options}"
-        )
+    check_multioutput(parameter=multi_output)
     
 
 
     # Formula = 1/n sum(np.abs((y_true - y_pred)))
 
-    y_true = np.asarray(y_true, dtype=float) # Changing to np.array
-    y_pred = np.asarray(y_pred, dtype=float)
+    y_true, y_pred = convert_array(y_true, y_pred)
 
     if y_true.shape != y_pred.shape:
         raise ValueError(f"Shape Mismatch Error {(y_true.shape, y_pred.shape)}")
