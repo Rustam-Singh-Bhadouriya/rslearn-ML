@@ -6,6 +6,10 @@ This project is focused on deeply understanding ML algorithms by implementing th
 
 ---
 
+## Release & Changes
+* **Version : ____**
+* **Release Date: _______**
+
 ## 🚀 Features
 
 ### Latest (In metrics/_classification.py): 
@@ -14,6 +18,12 @@ This project is focused on deeply understanding ML algorithms by implementing th
 * Precision
 * F1 Score
 
+## 🐛 Fixes
+* Module Base Design
+* Simplicity In Code Style
+
+## 🗄️ New File
+* **_base.py**
 
 ### 📊 Linear Models
 
