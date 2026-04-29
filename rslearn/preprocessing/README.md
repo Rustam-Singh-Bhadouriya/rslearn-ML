@@ -50,7 +50,7 @@ overwhelming for simple tasks due to its size and strict input requirements.
 ## 📥 Installation / Usage
 
 ```python
-from sklearn_clone.preprocessing.Scaler import StandardScaler
+from rslearn.preprocessing import StandardScaler
 
 scaler = StandardScaler()
 scaled_data = scaler.fit_transform([1, 2, 3, 4])

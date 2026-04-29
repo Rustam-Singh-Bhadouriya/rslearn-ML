@@ -48,10 +48,10 @@
 *Dependencies*  - git  
 
 ``` bash
-git clone https://github.com/Rustam-Singh-Bhadouriya/sklearn_clone.git
+git clone https://github.com/Rustam-Singh-Bhadouriya/rslearn-ML.git
 cd rslearn
 ```
 
 - Using GitHub Release For Explained Stable Newer Version
 
-**[Stable Releases](https://github.com/Rustam-Singh-Bhadouriya/sklearn_clone/releases)**
+**[Stable Releases](https://github.com/Rustam-Singh-Bhadouriya/rslearn-ML/releases)**
