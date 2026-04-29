@@ -5,28 +5,40 @@
 
 ## Module Download
 
-- 🔹 v1.0.0
+- 🔹 Latest Version - `v1.0.4`
+  - Includes Always Latest Things Read [CHANGELOG](CHANGELOG.md)
+  ```bash
+  pip install rslearn-ML
+  ```
+
+- 🔹 `v1.0.0`
   - Includes Basic Linear Regression and Some Scalers
   ```bash
   pip install rslearn-ML==1.0.0
   ```
 
-- 🔹 v1.0.1 
+- 🔹 `v1.0.1` 
   - Includes Train Test Spit & Multiple Linear Regression
   ```bash
   pip install rslearn-ML==1.0.1
   ```
 
-- 🔹 v1.0.2
+- 🔹 `v1.0.2`
   - Includes Logistic Regression & Metrics/Regression Tools & Regulations (`l1`, `l2`, etc)
   ```bash
   pip install rslearn-ML==1.0.2
   ```
 
-- 🔹 v1.0.3
+- 🔹 `v1.0.3`
   - Includes Improved Logistic Regression & Metrics/Classification Tools
   ```bash
   pip install rslearn-ML==1.0.3
+  ```
+
+- 🔹 `v1.0.4`
+  - Includes Inbuilt Scaler In `Linear` & `Logistic` Regression  
+  ```bash
+  pip install rslearn-ML==1.0.4
   ```
 
 ## Source Code Download

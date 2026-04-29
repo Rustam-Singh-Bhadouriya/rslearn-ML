@@ -22,6 +22,9 @@ Read READNE.md or Documentation for More Information about their Functions
 
 import numpy as np
 from rslearn.metrics import mse
+from rslearn.BaseEstimators import _base
+from rslearn.preprocessing import StandardScaler
+
 
 class LinearRegression():
 
@@ -32,12 +35,12 @@ class LinearRegression():
         Linear Regression
         ------------------------
 
-        linear Regression for 1D and 2D metrics arrays  using gradient descents and regulization  
-        use Scalers like MinMaxScaler or StandardScaler before fitting for haldle large value  
+        linear Regression for 1D and 2D metrics arrays  using gradient descents and regulization
+        use Scalers like MinMaxScaler or StandardScaler before fitting for Handle large value
 
         Example
         --------
-        regulization: regulizing option to avoid overfitting  
+        regulization: regulizing option to avoid overfitting
             options:  `l1` for Lasso  
                       `l2` for Ridge  
                       `elastic_net` for elastic_net
@@ -70,7 +73,7 @@ class LinearRegression():
         >>> Model = LinearRegression()
         >>> X = np.array([10, 20, 30]) # List also works.
         >>> y = np.array([5, 10, 15])
-        >>> Model.fit(X, y) # You can change learning_rate too
+        >>> Model.fit(X, y, scale=True) # You can change learning_rate too
         >>> print(f"Weight & Bias: {Model.get_weight_bias()}")
         >>> prediction = Model.predict(np.array([40, 50]))
         >>> print(f"Prediction: {prediction}")
@@ -81,12 +84,14 @@ class LinearRegression():
 
         self.weights = None
         self.bias = None
+        self.Scaler = StandardScaler() # Scaler
+        self.flag = False # Flag For Scaler Status
 
         valid_params = {"l1", "l2", "elastic_net", None}
         if regulization not in valid_params:
             raise ValueError(f"regulization parameter is not supported, supported Parameters {valid_params}")
         
-        self.caclucate_error = self._regulizing_linear_helper(regulization=regulization, alpha=alpha, l1_ratio=l1_ratio)
+        self.calculate_error = self._regulizing_linear_helper(regulization=regulization, alpha=alpha, l1_ratio=l1_ratio)
             
     
 
@@ -96,9 +101,11 @@ class LinearRegression():
             y , 
             weights= None,
             bias = None,
-            learning_rate : float = 0.01,
+            learning_rate : float = 0.001,
             min_loss : float = 0.2,
-            max_itr : int = 18000
+            max_itr : int = 18000,
+            verbose : bool = True,
+            scale : bool = True
             ):
         """
 
@@ -110,25 +117,36 @@ class LinearRegression():
 
         max_itr = loop to update weight and bias, Dtype = int and default = 18000  | No Input need  
 
-        learning_rate = how fast weights should update, Dtype = float, Default = 0.01  
+        learning_rate = how fast weights should update, Dtype = float, Default = 0.01
+
+        scale: Auto Scales Data On StandardScaler if True else Not
+            Default `True`
 
         weights = enter custom weight |  optional  
 
-        bias = enter custom bias |  optional  
+        bias = enter custom bias |  optional
 
-        min_loss = minimum loss where to stop the loop Default = 0.2 and its almost best for gradient descent  
+        min_loss = minimum loss where to stop the loop Default = 0.2, and it's almost best for gradient descent
+
+        verbose = True/False | Prints The iteration where Model Fitted Successfully
+
         -----------------
 
         Change the `learning_rate` or Use `Scalers` if output or weights contains 'e' e.g -1.8038873e+163
         """
 
-        
-
-        X = np.array(X)
-        y = np.array(y).reshape(-1)
+        X, y = _base.convert_array(arr1=X, arr2=y) # Converting to np.array
+        y = _base.convert1D(y) # Converting to 1D
 
         if X.ndim == 1:
             X = X.reshape(-1, 1)
+
+        _base.shape_checker(X, y, output_mode=False)
+
+        if scale:
+            X = self.Scaler.fit_transform(X)
+            self.flag = True
+
         
         n_samples, n_feature = X.shape
 
@@ -144,20 +162,21 @@ class LinearRegression():
         while iteration < max_itr:
             pred = np.dot(X, weights) + bias # prediction
 
-            mse_error = self.caclucate_error.get_error(y_true=y, y_pred=pred, weights=weights)
+            mse_error : float = self.calculate_error.get_error(y_true=y, y_pred=pred, weights=weights)
 
             if mse_error <= min_loss:
-                print(f"Model Succesfully Fitted at #{iteration} iteration")
+                if verbose:
+                    print(f"Model Succesfully Fitted at #{iteration} iteration")
                 break
 
             loss = pred - y # Loss for Gradients
-            dw = (2/n_samples) * np.dot(X.T, loss) + self.caclucate_error.get_weight_gradient(weights=weights)
+            dw = (2/n_samples) * np.dot(X.T, loss) + self.calculate_error.get_weight_gradient(weights=weights)
             db = (2/n_samples) * np.sum(loss)
 
             weights -= learning_rate * dw
             bias -= learning_rate * db
 
-            if np.isnan(weights).any() or np.isnan(bias):
+            if _base.check_overflow(weights=weights, bias=bias):
                 print("NaN detected, stopping training, Use Scalers to avoid it")
                 break
 
@@ -184,7 +203,12 @@ class LinearRegression():
         if len(new_data) == 0:
             raise ValueError("Got Empty Array")
         
-        new_data = np.array(new_data)
+        new_data = np.asarray(new_data, dtype=float)
+
+        if self.flag:
+            new_data = self.Scaler.transform(new_data)
+
+
 
         if new_data.ndim == 1:
             new_data = new_data.reshape(-1, 1)

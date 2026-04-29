@@ -1,11 +1,15 @@
-# linear_models 
+# 📊 linear_models 
 Collection of most of commonly used linear_model like Linear Regression Logistic Regression
 Scaler is preferd for better result
 
-## contains Models
+## 🤖 contains Models
 - Linear Regression
 - Logistic Regression
 - Ridge & Lasso & ElasticNet Regulization (l1, l2 and ElasticNet)
+
+## 🆕 Latest Feature
+- `Inbuilt StandardScaler Support For Linear Regression & Logistic Regression`
+
 
 ## How to use
 its pretty Simple Just import define and fit and then predict like sklearn like  
@@ -27,12 +31,21 @@ from rslearn.linear_model import LinearRegression
 Model = LinearRegression(regulization="l1")
 ```
 
+#### 🆕 New Parameter - `scale` in fit()
+_Uses StandardScaler to Scale X for Train and Predict Both Time Automatically if its True
+`Default: True`_   
+
 ### `Logistic Regression`
 StandardScaler or MinMaxScaler is preferd in Multi class classification
 ``` python
 from rslearn.linear_model import LogisticRegression
 Model = LogisticRegression()
 ```
+
+#### 🆕 New Parameter - `scale` in fit()
+_Uses StandardScaler to Scale X for Train and Predict Both Time Automatically if its True
+`Default: True`_  
+
 checkout preprocessing/README.md for Scalers detail
 
 Thats It! 

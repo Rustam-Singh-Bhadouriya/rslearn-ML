@@ -4,33 +4,31 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [1.0.4 - v1.0.3] - 2026-04-28
+## [1.0.5 - v1.0.4] - 2026-04-29
 
 ### Added
-* `metrics/_base.py`
-* `download.md`
+* `BaseEstimators/_base.py`
 
 ----------
-* **`metrics`**:
-  * Confusion Metrics
-  * Recall
-  * Precision
-  * F1 Score
+### New Features
+* `Inbuilt Scaler Support For Linear Regression & Logistic Regression`  
+
+Read [More About This Parameter](rslearn/linear_model/README.md) For More Information
 
 ### Improved
-* Logistic Regression for Imbalanced Datasets
 * Code reusability Improved
+* Gradients Instability Improved 
 
 ### Notes
 ***`See Older Version for more Information`***
 
 ### File Changed
-* metrics/_classification.py
-* metrics/__init__.py
 * linear_model/_LogisticRegression.py
+* linear_model/_LinearRegression.py
 * .gitignore
 * README.md
-* metrics/classification_readme.md
-* metrics/README.md
+* linear_model/README.md
 * CHANGELOG.MD
-* metrics/_base.py
+* metrics/_base.py - Removed
+* linear_model/_regulizations.py
+* download.md

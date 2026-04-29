@@ -7,24 +7,25 @@ This project is focused on deeply understanding ML algorithms by implementing th
 ---
 
 ## Release & Changes
-* **Version : 1.0.4 - 1.0.3**
-* **Release Date: 2026-04-28**
+* **Version : 1.0.5 - 1.0.4**
+* **Release Date: 2026-04-29**
 
 ## 🚀 Features
 
-### Latest (In metrics/_classification.py): 
-* Confusion Metrics
-* Recall
-* Precision
-* F1 Score
+### Latest (In linear_model): 
+* `Inbuilt Auto Scale For Train And Predict Time`
+
+More Info: [CHANGELOG](CHANGELOG.md)  
+More Parameter Info: [README](rslearn/linear_model/README.md)  
+Read Doc Strings For Extra Information About Parameter
 
 ## 🐛 Fixes
-* Module Base Design
-* Simplicity In Code Style
+* Gradients Instability  
+* Code Design
 
-## 🗄️ New File
-* **_base.py**
-* **download.md**
+## 🗄️ New File & Folders
+* **Folder: BaseEstimators**
+* **File: BaseEstimators/_base.py**
 
 ## Download Version Specific Module
 ***[Downloads - Module](download.md)***
@@ -80,9 +81,11 @@ All models in **rslearn** are implemented using **Gradient Descent**.
 
 ---
 
-## 🤖 Auto Scaling (Ridge, Lasso, ElasticNet)
 
-Regularized models include:
+
+## 🤖 Auto Standard Scaling (Linear, Logistic, Ridge, Lasso, ElasticNet)
+
+models include Inbuilt StandardScaler Feature in fit() Method:
 
 ```python
 scale=True  # default
@@ -90,10 +93,6 @@ scale=True  # default
 
 * Automatically applies feature scaling internally
 * Helps prevent numerical instability
-
-💡 Still recommended:
-
-> Use `StandardScaler` manually for best performance and control.
 
 ---
 

@@ -17,6 +17,8 @@ Example:
 """
 
 import numpy as np
+from rslearn.BaseEstimators import _base
+from rslearn.preprocessing import StandardScaler
 
 
 class LogisticRegression:
@@ -37,7 +39,7 @@ class LogisticRegression:
         auto for automaticly chooses (Default)  
     
     lr: learning_rate  
-        Default `0.01`  
+        Default `0.01`
     
     Methords
     --------
@@ -56,14 +58,16 @@ class LogisticRegression:
 
     """
 
-    def __init__(self, solver="auto", lr = 0.01):
+    def __init__(self, solver="auto", lr = 0.001):
         if solver not in ["saga", "liblinear", "auto"]:
-            raise ValueError(f"Solver Must be saga or liblinear {solver}")
+            raise ValueError(f"Solver Must be saga or liblinear or auto (Default), Got {solver}")
 
         self.solver = solver
         self.lr = lr
         self.weights = None
         self.bias = None
+        self.Scaler = StandardScaler()
+        self.flag = False # Flag for Scaler's Status
 
     # Probablity predictor for catogirical classification
     def predict_proba(self, X):
@@ -83,7 +87,7 @@ class LogisticRegression:
             probs = probs / probs.sum(axis=1, keepdims=True)
             return probs
 
-    def fit(self, X, y, max_itr = 1000, ):
+    def fit(self, X, y, max_itr = 1000, scale=True):
 
         """
         Function for fitting Logistic Regression Model
@@ -97,7 +101,10 @@ class LogisticRegression:
             1D array | `np.array`  
         
         max_itr: maximum itration to loop though  
-            Default `1000`  
+            Default `1000`
+
+        scale: Auto Scales Data On StandardScaler if True else Not
+            Default `True`
         
         Returns
         -------
@@ -108,8 +115,18 @@ class LogisticRegression:
         y = np.asarray(y)
         y = y.reshape(-1)
 
-        if len(X) != len(y):
-            raise ValueError(f"X and y are diffrent size {(len(X), len(y))}")
+        if X.ndim == 1:
+            X = X.reshape(-1, 1)
+
+        _base.shape_checker(X, y, output_mode=False) # Checking Shapes of Arrays
+
+
+        if scale:
+            X = self.Scaler.fit_transform(X)
+            self.flag = True
+
+
+
 
         # Handling solvers in auto mode
         if self.solver == "auto":
@@ -127,7 +144,7 @@ class LogisticRegression:
         else:
             Model = _catogirical_fit(X=X, y=y)
             Model.fit()
-            self._cato_model = Model
+            self._cato_model = Model # Saving saga Model
 
     def predict(self, X):
 
@@ -142,7 +159,12 @@ class LogisticRegression:
         """
 
         X = np.asarray(X)
+        if X.ndim == 1:
+            X = X.reshape(-1, 1)
 
+        # Scaling If Available
+        if self.flag:
+            X = self.Scaler.transform(X)
 
         probs = self.predict_proba(X)
 

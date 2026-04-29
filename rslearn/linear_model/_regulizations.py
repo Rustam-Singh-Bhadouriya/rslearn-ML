@@ -43,8 +43,9 @@ class Lasso:
         self.alpha = alpha
         self.l1_score = l1_score
         self.weights, self.bias = None
+        self.model = None
     
-    def fit(self, X, y, Scale=True):
+    def fit(self, X, y, scale=True):
 
         """
         `fit()` Function For `Lasso` to Train The Model  
@@ -65,13 +66,8 @@ class Lasso:
         """
 
         model = LinearRegression(regulization="l1", alpha=self.alpha, l1_ratio=self.l1_score)
-
-        if Scale: # Use Scalers for better performance
-            X = X/max(X)
-            y = y/max(y)
-
         
-        model.fit(X, y)
+        model.fit(X, y, scale=scale)
 
         self.weights, self.bias = model.get_weight_bias()
         self.model = model
@@ -117,8 +113,9 @@ class Ridge:
         self.alpha = alpha
         self.l1_score = l1_score
         self.weights, self.bias = None
+        self.model = None
     
-    def fit(self, X, y, Scale=True):
+    def fit(self, X, y, scale=True):
         """
         `fit()` Function For `Ridge` to Train The Model  
 
@@ -140,12 +137,9 @@ class Ridge:
 
         model = LinearRegression(regulization="l2", alpha=self.alpha, l1_ratio=self.l1_score)
 
-        if Scale: # Use Scalers for better performance
-            X = X/max(X)
-            y = y/max(y)
 
         
-        model.fit(X, y)
+        model.fit(X, y, scale=scale)
 
         self.weights, self.bias = model.get_weight_bias()
         self.model = model
@@ -190,8 +184,9 @@ class ElasticNet:
         self.alpha = alpha
         self.l1_score = l1_score
         self.weights, self.bias = None
+        self.model = None
     
-    def fit(self, X, y, Scale=True):
+    def fit(self, X, y, scale=True):
         """
         `fit()` Function For `ElasticNet` to Train The Model  
 
@@ -212,13 +207,8 @@ class ElasticNet:
 
 
         model = LinearRegression(regulization="elastic_net", alpha=self.alpha, l1_ratio=self.l1_score)
-
-        if Scale: # Use Scalers for better performance
-            X = X/max(X)
-            y = y/max(y)
-
         
-        model.fit(X, y)
+        model.fit(X, y, scale=scale)
 
         self.weights, self.bias = model.get_weight_bias()
         self.model = model
