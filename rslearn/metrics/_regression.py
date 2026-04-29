@@ -1,5 +1,5 @@
 import numpy as np
-from ._base import (convert_array, 
+from rslearn.BaseEstimators._base import (convert_array,
                     check_multioutput, 
                     dim_validator, 
                     shape_checker,
