@@ -1,3 +1,17 @@
+# rslearn-ML
+# Copyright (C) 2026 Rustam Singh Bhadouriya
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# See the LICENSE file for more details.
+
 """
 Logistic Regression implementation using Gradient Descent.
 
@@ -68,6 +82,8 @@ class LogisticRegression:
         self.bias = None
         self.Scaler = StandardScaler()
         self.flag = False # Flag for Scaler's Status
+        self.type = "classification" # Flag for Pipeline
+        self.fitted_shape=None # Edge Case
 
     # Probablity predictor for catogirical classification
     def predict_proba(self, X):
@@ -125,7 +141,7 @@ class LogisticRegression:
             X = self.Scaler.fit_transform(X)
             self.flag = True
 
-
+        self.fitted_shape=X.shape
 
 
         # Handling solvers in auto mode
@@ -158,9 +174,15 @@ class LogisticRegression:
             preferd `np.array`, `DataFrame`
         """
 
+        if len(X) == 0:
+            raise ValueError("Got Empty Array")
+
         X = np.asarray(X)
         if X.ndim == 1:
             X = X.reshape(-1, 1)
+
+        if self.fitted_shape != new_data.shape:
+            raise ValueError(f"Invalid Shape, Model trained on {self.fitted_shape} but got {new_data.shape}")
 
         # Scaling If Available
         if self.flag:

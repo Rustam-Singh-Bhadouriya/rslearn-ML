@@ -1,3 +1,17 @@
+# rslearn-ML
+# Copyright (C) 2026 Rustam Singh Bhadouriya
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# See the LICENSE file for more details.
+
 import numpy as np
 from numpy import dtype
 
@@ -49,7 +63,7 @@ def convert1D(*args) -> np.array:
 
 """Shape Checker For All rslearn/*"""
 def shape_checker(arr1, arr2, output_mode=True):
-    arr1, arr2 - convert_array(arr1, arr2)
+    arr1, arr2 = convert_array(arr1, arr2)
 
     # if arr1, arr2 are coming from classification y_true, y_pred
     # to avoid multioutput shape error like
