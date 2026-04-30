@@ -1,0 +1,18 @@
+License: GNU GPL v3
+
+## Notice
+
+rslearn-ML is an independent machine learning library created by Rustam Singh Bhadouriya.
+
+This project is inspired by scikit-learn’s API design and partially by TensorFlow-style workflows for educational and experimental purposes.
+
+No source code from scikit-learn or TensorFlow was copied into this project. All implementations were written independently.
+
+All the files & folders under this project licensed by GNU GPL v3
+
+rslearn-ML includes custom features such as:
+- Built-in scaler options in models
+- Custom validation workflows
+- Gradient descent implementations
+- Input validation improvements
+- Educational-friendly API design

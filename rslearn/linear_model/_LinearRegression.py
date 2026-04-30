@@ -1,3 +1,17 @@
+# rslearn-ML
+# Copyright (C) 2026 Rustam Singh Bhadouriya
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# See the LICENSE file for more details.
+
 """
 Things : - 
 
@@ -86,6 +100,8 @@ class LinearRegression():
         self.bias = None
         self.Scaler = StandardScaler() # Scaler
         self.flag = False # Flag For Scaler Status
+        self.type = "regression"
+        self.fitted_shape = None # Edge Case
 
         valid_params = {"l1", "l2", "elastic_net", None}
         if regulization not in valid_params:
@@ -97,8 +113,8 @@ class LinearRegression():
 
 
     def fit(self,
-            X ,
-            y , 
+            X_arr ,
+            y_arr , 
             weights= None,
             bias = None,
             learning_rate : float = 0.001,
@@ -135,8 +151,8 @@ class LinearRegression():
         Change the `learning_rate` or Use `Scalers` if output or weights contains 'e' e.g -1.8038873e+163
         """
 
-        X, y = _base.convert_array(arr1=X, arr2=y) # Converting to np.array
-        y = _base.convert1D(y) # Converting to 1D
+        X, y = _base.convert_array(arr1=X_arr, arr2=y_arr) # Converting to np.array
+        y = y.reshape(-1)
 
         if X.ndim == 1:
             X = X.reshape(-1, 1)
@@ -149,6 +165,7 @@ class LinearRegression():
 
         
         n_samples, n_feature = X.shape
+        self.fitted_shape = X.shape
 
         np.random.seed(7)
         if weights is None:
@@ -204,6 +221,9 @@ class LinearRegression():
             raise ValueError("Got Empty Array")
         
         new_data = np.asarray(new_data, dtype=float)
+
+        if self.fitted_shape != new_data.shape:
+            raise ValueError(f"Invalid Shape, Model trained on {self.fitted_shape} but got {new_data.shape}")
 
         if self.flag:
             new_data = self.Scaler.transform(new_data)
