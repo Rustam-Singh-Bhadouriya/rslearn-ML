@@ -7,8 +7,15 @@
 
 - 🔹 Latest Version - `v1.0.4`
   - Includes Always Latest Things Read [CHANGELOG](CHANGELOG.md)
+ 
+  - For Fresh Install
   ```bash
   pip install rslearn-ML
+  ```
+
+  - For Update
+  ```bash
+  pip install --upgrade rslearn-ML
   ```
 
 - 🔹 `v1.0.0`
@@ -54,4 +61,4 @@ cd rslearn
 
 - Using GitHub Release For Explained Stable Newer Version
 
-**[Stable Releases](https://github.com/Rustam-Singh-Bhadouriya/rslearn-ML/releases)**
+**[Stable Releases](https://github.com/Rustam-Singh-Bhadouriya/sklearn_clone/releases)**
