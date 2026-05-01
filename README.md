@@ -141,7 +141,7 @@ rslearn/
 ### Clone the repository
 
 ```bash
-git clone https://github.com/Rustam-Singh-Bhadouriya/sklearn_clone.git
+git clone https://github.com/Rustam-Singh-Bhadouriya/rslearn-ML.git
 cd rslearn
 ```
 
@@ -211,4 +211,4 @@ print(model.predict([40]))
 
 ## 📜 License
 
-This project is licensed under the MIT License.
+This project is licensed under the GNU GPL v3 License.
