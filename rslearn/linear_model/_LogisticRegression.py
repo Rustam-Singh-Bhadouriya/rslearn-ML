@@ -33,6 +33,11 @@ Example:
 import numpy as np
 from rslearn.BaseEstimators import _base
 from rslearn.preprocessing import StandardScaler
+from rslearn.metrics import (accuracy_score,
+                            f1_score, 
+                            recall, 
+                            precision,
+                            )
 
 
 class LogisticRegression:
@@ -141,8 +146,6 @@ class LogisticRegression:
         if scale:
             X = self.Scaler.fit_transform(X)
             self.flag = True
-        else:
-            X = X/max(X)
 
         self.fitted_shape=X.shape
 
@@ -189,15 +192,13 @@ class LogisticRegression:
         if X.ndim == 1:
             X = X.reshape(-1, 1)
 
-        if self.fitted_shape != new_data.shape:
-            raise ValueError(f"Invalid Shape, Model trained on {self.fitted_shape} but got {new_data.shape}")
+        if self.fitted_shape[1] != X.shape[1]:
+            raise ValueError(f"Invalid Shape, Model trained on {self.fitted_shape} but got {X.shape}")
 
         # Scaling If Available
         if self.flag:
             X = self.Scaler.transform(X)
         
-        else: # For Gradients Stability
-            X = X/max(X)
 
         probs = self.predict_proba(X)
 
@@ -206,6 +207,72 @@ class LogisticRegression:
             
         else:
             return np.argmax(probs, axis=1)
+    
+    def evaluate(
+        self,
+        X=None,
+        y_pred=None,
+        y_true=None
+    ):
+        
+        """
+        `analysis` Method
+
+        Function to Evaluate All suitable Metrics Algorithams and print Them 
+
+        Parameters
+        ----------
+        y_pred: predictions from Model
+
+        y_true: Correct Values to Evaluate
+
+        Returns
+        -------
+        None
+        """
+
+
+        if not self._fitted: # If Model is not fitted
+            raise RuntimeError(
+                "This model is not trained yet. Call 'fit()' before using 'evaluate()'."
+            )
+
+        if y_true is None: # Edge case : Nothing to compare
+            raise ValueError("Invalid Arguments `y_true` `None`")
+        
+        
+        if y_pred is None:
+            if X is None: # Edge case: Both `X` and `y_pred` are None
+                raise ValueError("parameter `X` and `y_pred` Both given None.")
+        
+            y_pred = self.predict(X) # Getting Prediction
+
+
+        # Converting to `np.array`` if they are not
+        y_pred = np.asarray(y_pred) # if y_pred != None, Otherwise Model will return `np.array``
+        y_true = np.asarray(y_true)
+        y_true = y_true.reshape(-1) # reshaping y_true to 1D to match with y_pred
+
+        _base.shape_checker(arr1=y_true, arr2=y_pred, output_mode=True)
+
+        # Evaluations for Classification Tasks Task
+        accuracy = accuracy_score(y_true=y_true, y_pred=y_pred)
+        F1 = f1_score(y_true=y_true, y_pred=y_pred)
+        Recall = recall(y_true=y_true, y_pred=y_pred)
+        Precision = precision(y_true=y_true, y_pred=y_pred)
+
+        evaluations = { # Storing in Dict
+            "accuracy_score": float(accuracy),
+            "f1_score": float(F1),
+            "recall": float(Recall),
+            "precision": float(Precision)
+        }
+
+        # Returning `prediction` and `Evaluation` for future Flask/FastAPI support
+        return {
+            "prediction" : y_pred,
+            "evaluation" : evaluations
+        }
         
                 
 

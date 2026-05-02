@@ -94,6 +94,9 @@ class Lasso:
     def get_weight_bias(self):
         return (self.weights, self.bias)
 
+    def evaluate(self, X=None, y_pred=None, y_true=None):
+        return self.model.evaluate(X=X, y_pred=y_pred, y_true=y_true)
+
 
 class Ridge:
     """
@@ -166,6 +169,9 @@ class Ridge:
     
     def get_weight_bias(self):
         return (self.weights, self.bias)
+    
+    def evaluate(self, X=None, y_pred=None, y_true=None):
+        return self.model.evaluate(X=X, y_pred=y_pred, y_true=y_true)
 
 class ElasticNet:
     """
@@ -236,3 +242,6 @@ class ElasticNet:
     
     def get_weight_bias(self):
         return (self.weights, self.bias)
+    
+    def evaluate(self, X=None, y_pred=None, y_true=None):
+        return self.model.evaluate(X=X, y_pred=y_pred, y_true=y_true)

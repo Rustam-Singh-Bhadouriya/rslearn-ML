@@ -35,9 +35,14 @@ Read READNE.md or Documentation for More Information about their Functions
 """
 
 import numpy as np
-from rslearn.metrics import mse
 from rslearn.BaseEstimators import _base
 from rslearn.preprocessing import StandardScaler
+from rslearn.metrics import (
+                            r2_score, 
+                            mse,
+                            rmse,
+                            mae
+                            )
 
 
 class LinearRegression():
@@ -163,8 +168,6 @@ class LinearRegression():
         if scale:
             X = self.Scaler.fit_transform(X)
             self.flag = True
-        else:
-            X = X/max(X)
 
         
         n_samples, n_feature = X.shape
@@ -231,16 +234,84 @@ class LinearRegression():
         if new_data.ndim == 1:
             new_data = new_data.reshape(-1, 1)
 
-        if self.fitted_shape != new_data.shape:
+        if self.fitted_shape[1] != new_data.shape[1]:
             raise ValueError(f"Invalid Shape, Model trained on {self.fitted_shape} but got {new_data.shape}")
 
         if self.flag:
             new_data = self.Scaler.transform(new_data)
-        else:
-            new_data = new_data/max(new_data)
         
 
-        return (np.dot(new_data, self.weights) + self.bias).round(2)
+        return (np.dot(new_data, self.weights) + self.bias).round()
+
+    def evaluate(
+        self,
+        X=None,
+        y_pred=None,
+        y_true=None
+    ):
+        
+        """
+        `analysis` Method
+
+        Function to Evaluate All suitable Metrics Algorithams and print Them 
+
+        Parameters
+        ----------
+        y_pred: predictions from Model
+
+        y_true: Correct Values to Evaluate
+
+        Returns
+        -------
+        None
+        """
+
+
+        if not self._fitted: # If Model is not fitted
+            raise RuntimeError(
+                "This model is not trained yet. Call 'fit()' before using 'evaluate()'."
+            )
+
+        if y_true is None: # Edge case : Nothing to compare
+            raise ValueError("Invalid Arguments `y_true` `None`")
+        
+        
+        if y_pred is None:
+            if X is None: # Edge case: Both `X` and `y_pred` are None
+                raise ValueError("parameter `X` and `y_pred` Both given None.")
+        
+            y_pred = self.predict(X) # Getting Prediction
+
+
+        # Converting to `np.array`` if they are not
+        y_pred = np.asarray(y_pred, dtype=float) # if y_pred != None, Otherwise Model will return `np.array``
+        y_true = np.asarray(y_true, dtype=float)
+        y_true = y_true.reshape(-1) # reshaping y_true to 1D to match with y_pred
+
+        _base.shape_checker(arr1=y_true, arr2=y_pred, output_mode=True)
+
+        # Evaluations for Regression Task
+        r2_Score = r2_score(y_true=y_true, y_pred=y_pred)
+        MSE = mse(y_true=y_true, y_pred=y_pred)
+        MAE = mae(y_true=y_true, y_pred=y_pred)
+        RMSE = rmse(y_true=y_true, y_pred=y_pred)
+
+        evaluations = { # Storing in Dict
+            "r2_score": r2_Score,
+            "mse": float(MSE),
+            "mae": float(MAE),
+            "rmse": float(RMSE)
+        }
+
+        # Returning `prediction` and `Evaluation` for future Flask/FastAPI support
+        return {
+            "prediction" : y_pred,
+            "evaluation" : evaluations
+        }
+        
+
+
+        
 
     class _regulizing_linear_helper:
         def __init__(self, alpha=0.1, regulization=None, l1_ratio = 0.5):
