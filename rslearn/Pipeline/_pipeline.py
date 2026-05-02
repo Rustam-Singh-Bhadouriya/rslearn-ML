@@ -39,6 +39,7 @@ from rslearn.metrics import (accuracy_score,
                             rmse,
                             mae
                             )
+from pprint import pprint
 
 class pipeline:
     def __init__(self, params={}, validation_split=False, split_params={"test_size": 0.25, "random_state": 67, "stratify": None},):
@@ -190,8 +191,9 @@ class pipeline:
 
         
     def fit(self,
-            X,
-            y,
+            X=None,
+            y=None,
+            verbose=True
             ):
             """ 
             `fit` Method for pipeline
@@ -208,6 +210,9 @@ class pipeline:
             -------
             None
             """
+            if X is None or y is None:
+                raise AttributeError("""Invalid Attribute `X` or `y`
+                                     Note: Check X or y not to be None""")
             
             if self.scaling:
                 X = self.Scaler.fit_transform(X)
@@ -225,10 +230,25 @@ class pipeline:
 
             if self.split:
                 y_pred = self.Model.predict(X_test)
-                self.analysis(y_pred=y_pred, y_true=y_test)
+                output = self.analysis(y_pred=y_pred, y_true=y_test)
+
+                if verbose is False:
+                    return output, X_test
+
+                print("Predictions For X_test")
+                print("X_test: ", self.Scaler.inverse_transform(X_test))
+                print("Prediction: ", output['prediction'])
+                print("Metrics Evaluations\n")
+                pprint(output['evaluation'])
+                
+                print("Output is Returned By output, X_test\n")
+                return output, self.Scaler.inverse_transform(X_test)
+
+                
+
     
     def predict(self,
-        new_data
+        new_data=None
         ):
 
         """
@@ -244,6 +264,9 @@ class pipeline:
         -------
         `np.array` of predictions
         """
+        if new_data is None:
+                raise AttributeError("""Invalid Attribute `new_data`
+                                     Note: Check `new_data` not to be None""")
 
         if len(new_data) == 0:
             raise ValueError("Got Empty Metrics!")
@@ -258,42 +281,36 @@ class pipeline:
         pred = self.Model.predict(new_data)
         return pred
     
-    def analysis(
+    def evaluate(
         self,
-        y_pred,
-        y_true
+        X=None,
+        y_pred=None,
+        y_true=None
     ):
-    """
-    `analysis` Method
+        
+        """
+        `evaluate` Method
 
-    Function to Evaluate All suitable Metrics Algorithams and print Them 
+        Function to Evaluate All suitable Metrics Algorithams and print Them 
 
-    Parameters
-    ----------
-    y_pred: predictions from Model
+        Parameters
+        ----------
+        y_pred: predictions from Model
 
-    y_true: Correct Values to Evaluate
+        y_true: Correct Values to Evaluate
 
-    Returns
-    -------
-    None
-    """
+        Returns
+        -------
+        Dict - dictonary of `predictions` & `Evaluations` on that  
+            Keys: `prediction`, `evaluation`  
+        """
 
-        y_pred = np.asarray(y_pred, dtype=float)
-        y_true = np.asarray(y_true, dtype=float)
-        y_true = y_true.reshape(-1)
+        if not self.trained:
+            raise RuntimeError(
+                "This model is not trained yet. Call 'fit()' before using 'evaluate()'."
+            )
 
-        if self.Model.type == "classification":
-            print(f"Accuracy Score: {accuracy_score(y_true, y_pred)}")
-            print(f"Recall: {recall(y_true, y_pred)}")
-            print(f"f1_score: {f1_score(y_true, y_pred)}")
-            print(f"precision: {precision(y_true, y_pred)}")
-                
-        if self.Model.type == "regression":
-            print(f"r2_score : {r2_score(y_true, y_pred)}")
-            print(f"Mean Squared Error: {mse(y_true, y_pred)}")
-            print(f"Mean Absolute Error: {mae(y_true, y_pred)}")
-            print(f"Root Mean Squared Error: {rmse(y_true, y_pred)}")
+        return self.Model.evaluate(X=X, y_pred=y_pred, y_true=y_true)
 
 
 

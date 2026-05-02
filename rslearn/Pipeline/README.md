@@ -1,6 +1,6 @@
 # 🪈 rslearn.Pipeline
 
-beginner-friendly pipeline that removes the need for manual preprocessing, splitting, and evaluation
+> beginner-friendly pipeline that removes the need for manual preprocessing, splitting, and evaluation
 
 Includes - 
 * **`pipeline`**
@@ -53,7 +53,7 @@ Parameters Which Contains `Model` & `Scaler` to Train and Evaluate
 | Parameter Name | Description | Option | Default | Dtype | Recommended | 
 |----------------|-------------|--------|---------|-------|-----------|  
 | `validation_split` | Auto Splitter for Auto Test accuracy| True/False| False | **Bool** | `True`
-| `split_params` | Splitting Configurations| test_size, random_state, stratify| given in class| **Dict** | `change stratify if Needed`
+| `split_params` | Splitting Configurations| test_size, random_state, stratify| given in class| **Dict** | `change stratify if Needed`|  
 
 
 ## 🛠️ Functions
@@ -61,7 +61,7 @@ Parameters Which Contains `Model` & `Scaler` to Train and Evaluate
 |---------------|-------------|-----------|
 | `fit` | To Train The Model | **X** - NxM metrics of Features, **y** - Correct Output For X Metrics|
 | `predict` | To Predict From Pipeline | **new_data** - New NxM metrics of Float |
-| `analysis` | Function to print All metrics Evaluation E.g `accuracy_score`, `recall`, etc| **y_pred** - prediction from pipeline & **y_true** - Correct Values|
+| `evaluate` | Function to Return All metrics Evaluation E.g `accuracy_score`, `recall`, etc| **y_pred** - prediction from pipeline & **y_true** - Correct Values|
 
 ## 🧑‍💻 Code
 
@@ -106,7 +106,7 @@ line = pipeline(
     line.fit(X=X, y=y)
     pred = line.predict([[34, 30], [10, 23], [10, 25]])
     print(pred)
-    line.analysis(y_pred=pred, y_true=[[64], [33], [35]])
+    line.evaluate(y_pred=pred, y_true=[[64], [33], [35]])
 ```
 
 ***Using `Validation_split` = `True`***
@@ -147,9 +147,9 @@ line = pipeline(
     ]
 
 
-    line.fit(X=X, y=y)
+    metrics_output, X_test = line.fit(X=X, y=y)
 ```
-Auto Split & Test Evaluation And It will print Automatically, You Dont need to Call The Analysis Function For Given Data And Also Dont needed Any train_test_split
+Auto Split & Test Evaluation And It will print Automatically, You Dont need to Call The Analysis Function For Given Data And Also Dont needed Any train_test_split & It return metrics output and X_test from that it Metrics calculated
 
 **What It will do Automatically**
 * split the data into train & test data
@@ -157,12 +157,15 @@ Auto Split & Test Evaluation And It will print Automatically, You Dont need to C
 * predicts for test data
 * Evaluate Metrics Stuff & prints it
 
-You will only need `analysis` Function When You predict for Another Data out of The Data you direct Given
+You will only need `evaluate` Function When You predict for Another Data out of The Data you direct Given
 
 ### 🔺 Profit From `Validation_split=True`
 * You Dont Need to Manually split the data into train & test
 * You Have Full Control too, like `test_size` & `stratify`
-* You Dont Need to use `accuracy_score` etc Manually, It will prints All Analysis For you
+* You Dont Need to use `accuracy_score` etc Manually, It will prints All Metrics Evaluation if `verbose=True` & Return For you
+
+**Returns `evaluate`**  
+> metrics_output, X_test = line.fit(X, y, verbose=True)
 
 
-#### You will only need `analysis` Function When You predict for Another Data out of The Data you direct Given
+#### You will only need `evaluate` Function When You predict for Another Data out of The Data you direct Given

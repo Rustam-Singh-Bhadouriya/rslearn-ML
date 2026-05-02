@@ -21,19 +21,26 @@
 
 ## Release & Changes
 * **Version : 1.0.6 - 1.0.5**
-* **Release Date: 2026-04-31**
+* **Release Date: 2026-05-02**
 
 ## 🚀 Features
 
-### Latest (In Pipeline): 
+### Latest (In Pipeline & linear_model): 
 * `Pipeline With Inbuilt Analysis Method With Regulizations class support`
+* `evaluation() Function Support in All Classes`
 
 More Info: [CHANGELOG](CHANGELOG.md)  
-More Parameter Info: [README](rslearn/Pipeline/README.md)  
+More Parameter Info (in Pipeline): [README](rslearn/Pipeline/README.md)  
+More Parameter Info (in linear_models): [README](rslearn/linear_model/README.md)
 Read Doc Strings For Extra Information About Parameter
+
+### Fix
+* Shape varification issue in `linear_model`
+* Auto Scaler Problem
 
 ### Changed
 * MIT License to GNU GPL v3
+* `analysis()` to `evaluate()` in Pipeline
 
 ## 🗄️ New File & Folders
 * **Folder: Pipeline**
