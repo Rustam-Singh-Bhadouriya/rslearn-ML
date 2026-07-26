@@ -322,53 +322,6 @@ class pipeline:
         return self.Model.evaluate(y_pred=y_pred, y_true=y_true)
         
 
-    def save(self, file_name="rslearn_pipeline.prsl"):
-        if not(self.trained):
-            raise NotFittedError("Pipeline has not been fitted yet.")
-
-        if not(file_name.endswith(".prsl")):
-            raise Error("Pipeline Supports `.prsl` format.")
-        
-        file_id = random.randint(0, 1000000)
-        actual_model = self.Model._model
-        self.Model._model = f"pipeline_{self.Model._model}_{file_id}"
-        self.Model.save(f"pipeline_{actual_model}.rsl")
-        pipeline_data = {
-            "pipeline" : True,
-            "version" : rslearn.__version__,
-            "rslearn_compressed" : True,
-            "Model" : actual_model,
-            "model_id" : file_id,
-            "scaling" : self.scaling,
-            "scaler": self.Scaler.name,
-            "task" : self.Model.type,
-            "split" : self.split,
-            "split_params" : self.split_params
-        }
-
-        if pipeline_data["scaler"] == "MinMaxScaler":
-            pipeline_data["MinMaxScaler"] = {
-                "min": self.Scaler.min_v.tolist(),
-                "max" : self.Scaler.max_v.tolist(),
-                "a" : self.Scaler.a,
-                "b" : self.Scaler.b
-            }
-        else: # StandardScaler case
-            pipeline_data["StandardScaler"] = {
-                "mean" : self.Scaler.mean.tolist(),
-                "std" : self.Scaler.std.tolist()
-            }
-
-
-        json_bytes = json.dumps(pipeline_data).encode("utf-8")
-
-        compressed = gzip.compress(json_bytes)
-
-        with open(file_name, "wb") as f:
-            f.write(compressed)
-
-        return f"Pipeline & Model Saved Successfully with {file_name} & {self.Model._model}.rsl"
-
 
 
 if __name__ == "__main__":
