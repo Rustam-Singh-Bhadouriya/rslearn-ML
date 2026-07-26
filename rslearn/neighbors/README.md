@@ -11,7 +11,7 @@ A classification model that implements the K-Nearest Neighbors algorithm for sup
 
 #### Parameters:
 - `k_neighbors`: int, default=5 - Number of neighbors to consider.
-- `Scaler`: StandardScaler, default=None - Scaler object used for feature scaling (must be initialized if `scale=True`).
+- `hard_scale_off`: float, default=False - ignore `scale` & leave data as it is  
 - `scale`: bool, default=True - Whether to perform scaling on the input features before fitting.
 
 #### Key Methods:
@@ -38,8 +38,9 @@ A classification model that implements the K-Nearest Neighbors algorithm for sup
 A regression model that implements the K-Nearest Neighbors algorithm for supervised learning. It supports optional data scaling during the fit phase to improve performance.
 
 #### Parameters:
+#### Parameters:
 - `k_neighbors`: int, default=5 - Number of neighbors to consider.
-- `Scaler`: StandardScaler, default=None - Scaler object used for feature scaling (must be initialized if `scale=True`).
+- `hard_scale_off`: float, default=False - ignore `scale` & leave data as it is  
 - `scale`: bool, default=True - Whether to perform scaling on the input features before fitting.
 
 #### Key Methods:
@@ -203,3 +204,6 @@ evaluation = model.evaluate(X_test, y_test)
 print("Model predictions:", predictions)
 print("Evaluation metrics:", evaluation)
 ```
+
+# NOTE
+**These Models does not support saving due to heavy data storage.**
