@@ -97,11 +97,17 @@ class LinearRegression(BaseEstimator):
         
         predict()
             Prediction generator from Model    
+
+        evaluate()  
+            get evaluation on ``y_pred`` or ``X``
+
+        save()  
+            To Save Model to ``.rsl`` format family.  
         
         Example
         -------
         >>> from rslearn.linear_model import LinearRegression
-        >>> Model = LinearRegression(max_itr=1800)
+        >>> Model = LinearRegression(max_itr=18000)
         >>> X = np.array([10, 20, 30]) # List also works.
         >>> y = np.array([5, 10, 15])
         >>> Model.fit(X, y, scale=True)
@@ -278,6 +284,15 @@ class LinearRegression(BaseEstimator):
         return super()._eval(X=X, y_pred=y_pred, y_true=y_true)
         
     def save(self, file_name="rslearn_model.rsl"):
+        """
+        Saves the trained linear regression model to a disk file in the '.rslr' format.
+
+        Parameters:
+            file_name (str): The name of the file where the model should be saved.
+                Defaults to "rslearn_model.rsl".
+        
+        NOTE: Model will save as binary file with ``.rslr`` regression format.
+        """
         super().save(file_name=file_name, regulization=self.regulization, min_loss=self.min_loss, alpha=self.alpha, l1_ratio=self.l1_ratio)
     
 

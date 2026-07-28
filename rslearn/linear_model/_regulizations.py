@@ -38,7 +38,16 @@ class Lasso(BaseEstimatorRegulization):
             Default: 0.1  
         
     l1_ratio: Lasso Ratio for Better ElasticNet Gradient and MSE  
-        Default: 0.5  
+            Default: 0.5  
+    
+    min_loss : float, default=0.1
+                Minimum loss threshold to stop training.  
+    
+    hard_scale_off : bool, default=False  
+            Stop any scaling when ``True``, `scale=True or False` will be ignored.   
+    
+    max_itr : int, default=3000  
+            Maximum number of iterations for the gradient descent algorithm during fitting  
 
     Returns
     -------
@@ -71,7 +80,7 @@ class Lasso(BaseEstimatorRegulization):
         y: array-like, 1D or 2D metrics of Real Value for X features
 
         Scaler: option to Scale Automaticly
-            Default: True, Use `StandardScaler` and select `False` For better results
+            Default: True  
         
         Returns
         -------
@@ -93,7 +102,16 @@ class Ridge(BaseEstimatorRegulization):
             Default: 0.1  
         
     l1_ratio: Lasso Ratio for Better ElasticNet Gradient and MSE  
-        Default: 0.5  
+            Default: 0.5  
+    
+    min_loss : float, default=0.1
+                Minimum loss threshold to stop training.  
+    
+    hard_scale_off : bool, default=False  
+            Stop any scaling when ``True``, `scale=True or False` will be ignored.   
+    
+    max_itr : int, default=3000  
+            Maximum number of iterations for the gradient descent algorithm during fitting  
 
     Returns
     -------
@@ -117,7 +135,7 @@ class Ridge(BaseEstimatorRegulization):
     def fit(self, X, y, scale=True,):
 
         """
-        `fit()` Function For `Lasso` to Train The Model  
+        `fit()` Function For `Ridge` to Train The Model  
 
         Parameters
         ----------
@@ -127,7 +145,7 @@ class Ridge(BaseEstimatorRegulization):
         y: array-like, 1D or 2D metrics of Real Value for X features
 
         Scaler: option to Scale Automaticly
-            Default: True, Use `StandardScaler` and select `False` For better results
+            Default: True  
         
         Returns
         -------
@@ -141,14 +159,23 @@ class ElasticNet(BaseEstimatorRegulization):
     `ElasticNet` regulization for Avoid Overfitting by Combination of `l1`, `l2`  
     NOTE: It uses LinearRegression Internly So make Sure to Scale youre Data and enter False in Scale Parameter in `fit()`  
 
-    Parameters
+Parameters
     -----------
 
     alpha: alpha value for Ridge, Lasso, ElasticNet  
             Default: 0.1  
         
     l1_ratio: Lasso Ratio for Better ElasticNet Gradient and MSE  
-        Default: 0.5  
+            Default: 0.5  
+    
+    min_loss : float, default=0.1
+                Minimum loss threshold to stop training.  
+    
+    hard_scale_off : bool, default=False  
+            Stop any scaling when ``True``, `scale=True or False` will be ignored.   
+    
+    max_itr : int, default=3000  
+            Maximum number of iterations for the gradient descent algorithm during fitting  
 
     Returns
     -------
@@ -172,7 +199,7 @@ class ElasticNet(BaseEstimatorRegulization):
     def fit(self, X, y, scale=True,):
 
         """
-        `fit()` Function For `Lasso` to Train The Model  
+        `fit()` Function For `ElasticNet` to Train The Model  
 
         Parameters
         ----------
@@ -182,7 +209,7 @@ class ElasticNet(BaseEstimatorRegulization):
         y: array-like, 1D or 2D metrics of Real Value for X features
 
         Scaler: option to Scale Automaticly
-            Default: True, Use `StandardScaler` and select `False` For better results
+            Default: True  
         
         Returns
         -------

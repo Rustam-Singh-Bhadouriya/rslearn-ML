@@ -35,7 +35,6 @@ import numpy as np
 from rslearn.model_selection import train_test_split
 from rslearn.Errors import *
 from pprint import pprint
-
 class pipeline:
     def __init__(self, params={}, validation_split=False, split_params={"test_size": 0.25, "random_state": 67, "stratify": None},):
         """
@@ -196,17 +195,20 @@ class pipeline:
             y=None,
             verbose=True
             ):
-            """ 
-            `fit` Method for pipeline
-
-            Function to Fit The Model
-
+            """
+            Function for fitting ``pipeline``
+    
             Parameters
             ----------
-            X: NxM metrics of `np.array` conatins The Feature to Train Model
+            X: feature set for model training
+                2D or 1D metrics | `np.array`, `DataFrame`  
             
-            y: Correct Output For X Metrics
-
+            y: correct value for X features set
+                1D array | `np.array`  
+    
+            verbose: print evaluations when splitting is allowed  
+                bool, default=True, effective only when ``validation_split=True``
+            
             Returns
             -------
             None
@@ -295,8 +297,10 @@ class pipeline:
             X: array-like of shape (n_samples, n_features), default=None
                 Input data to evaluate predictions on. If provided, model will generate
                 predictions and use them for evaluation.
+
             y_pred: array-like of shape (n_samples,), default=None
-                Predictions to use for evaluation. Only one of X or y_pred should be provided.
+                Predictions to use for evaluation. Only one of X or y_pred should be provided.  
+
             y_true: array-like of shape (n_samples,), default=None
                 True target values for evaluation.
         """
