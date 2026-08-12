@@ -9,6 +9,6 @@ These Algorithms are Implemented though Gradient so using scaler is Important, o
 
 ## Table Of Content
 Content of linear_model is listed below.  
-* <a href="linear_model/linear_regression.md">LinearRegression</a>  
-* <a href="linear_model/logistic_regression.md">LogisticRegression</a>  
-* <a href="linear_model/regulizations.md">regulizations (Lasso, Ridge, ElasticNet)</a>  
+* <a href="linear_regression.md">LinearRegression</a>  
+* <a href="logistic_regression.md">LogisticRegression</a>  
+* <a href="regulizations.md">regulizations (Lasso, Ridge, ElasticNet)</a>  
