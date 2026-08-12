@@ -9,18 +9,6 @@
 
 ---
 
-## NOTE
-**This is Python version of this library visit more.**
-
-* <a href="https://github.com/rslearn-lib/rslearn-ML-cpp">C++ Version</a>
-
-Origination - **<a href="https://github.com/rslearn-lib">rslearn-lib</a>**
-
-* <a href="https://rslearn-py.rslearnlib.workers.dev">rslearn-ML</a>
-* <a href="https://rslearn-lib.rslearnlib.workers.dev">rslearn-lib</a>
-
----
-
 ## ✨ Why rslearn?
 
 - ⚡ Minimal setup — no complex configuration  
@@ -28,12 +16,17 @@ Origination - **<a href="https://github.com/rslearn-lib">rslearn-lib</a>**
 - 📊 Built-in metrics for regression & classification  
 - 🧠 Designed for beginners learning ML concepts  
 - 🧩 Clean and simple API inspired by sklearn  
+- 📈 Automated evaluations with `evaluate_model`
 
 ---
 
 ## Release & Changes
-* **Version : 1.0.9 - 1.0.4** 
+* **Version : 1.1.0 - 1.0.4** 
 * **Release Date: 2026-06-26**
+* [CHANGELOG](CHANGELOG.md)
+
+# NOTE
+tests/* will be changed for each functions after documantation update.
 
 ## 
 
@@ -153,7 +146,10 @@ rslearn-ML/
 │   │
 │   ├── metrics/
 │   │   ├── __init__.py
-│   │   ├── README.md
+│   │   ├── README.md  
+│   │   ├── _evaluations.py  
+│   │   ├── regression_readme.md  
+│   │   ├── evaluation.md  
 │   │   ├── classification_readme.md
 │   │   ├── _classification.py
 │   │   ├── _distances.py
@@ -243,17 +239,14 @@ print(model.predict([40]))
   * Usage
   * Parameters
   * Examples
-  * Internal working
+  * Internal working  
+Good For `Developers` & `Contributors`
 
----
+**User Guide** 
+* [Docs](docs/README.md)
+* [user guide](docs/user_guide/README.md)
+* [quick start guide](docs/quick_start.md)
 
-## 🎯 Goals of this Project
-
-* Understand ML algorithms from scratch
-* Build a sklearn-like API
-* Create reusable and modular ML components
-* Learn real-world ML system design
-* Check Self Ability
 
 ---
 

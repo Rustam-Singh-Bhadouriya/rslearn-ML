@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 * Doc Update according new changes, README.md under folders  
 * Doc String update
 * added github version info, `rslearn.__github_version__`
+* Implemented `evaluate_model()` info=[docs](rslearn/metrics/evaluations.md)
 
 ### Feature/ref/fix/doc - 1.0.9
 * Model Saving among all `linear_model` family.
