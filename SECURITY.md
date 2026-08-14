@@ -4,18 +4,17 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.0.7   | :white_check_mark: |
-| 1.0.6   | :white_check_mark: |
-| 1.0.5   | :white_check_mark: |
-| < 1.0.4   | :x:                |
+| 1.1.0 & 1.0.4   | :white_check_mark: |
+| < 1.1.0 & 1.0.4   | ❌ |
+
 
 ## Reporting a Vulnerability
 
 If you discover a security vulnerability in **rslearn**, please report it responsibly.
 
 You can report it by:
-- Opening a private issue (if enabled), or  
-- Contacting the maintainer directly via GitHub
+- Opening a issue or  
+- Contacting the maintainer directly via GitHub or Linkedin
 
 Please **do not publicly disclose the issue** until it has been reviewed and resolved.
 
