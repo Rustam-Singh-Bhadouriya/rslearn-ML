@@ -45,3 +45,6 @@ tasks.txt
 *.rslr
 # For Pipeline - .prsl
 *.prsl
+
+# Another Tests
+test.py

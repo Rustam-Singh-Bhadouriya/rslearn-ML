@@ -38,6 +38,9 @@ class KNNRegressor(BaseEstimatorKNN):
         Parameters:  
             k_neighbors: int  
                 Number of neighbors to consider for regression, default = 5  
+            
+            hard_scale_off : bool  
+                when ``True`` all scalers will be avoided, default = 5  
  
         Methods:  
             fit(X, y, scale=True)

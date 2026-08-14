@@ -1,6 +1,6 @@
-# 📊 rslearn.metrics
+# 📊 rslearn.metrics.classification
 
-This module provides essential Classification metrics implemented in NumPy.
+This module provides essential `Classification` metrics implemented in NumPy.
 
 Currently, it includes:
 
@@ -10,9 +10,8 @@ Currently, it includes:
 - **Precision (`precision`)** 
 - **F1 Score (`f1_score`)**
 
-Upcoming: 
-- **Classification Report (`classification_report`)**
-
+### Visit For Regression Evaluation Metics
+* **[Regression tools](regression_readme.md)**
 
 # `Features`
 * Supports Binary and Multi output both

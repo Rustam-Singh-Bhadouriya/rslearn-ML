@@ -44,40 +44,47 @@ from rslearn.BaseEstimators import BaseEstimator
 from typing import List
 
 class LogisticRegression(BaseEstimator):
-
     """
     Logistic Regression
     -------------------
     Logistic Regression for 1D and 2D metrics both with binary and Catogirical classification support  
-
-    use any Scaler for better result and accuracy specially in catogirical classification  
+    use any Scaler for better result and accuracy specially in catogirical classification 
 
     Parameters
     ----------
+    solver : str, optional
+        Solver to use. Options: 'saga' for Categorical Classification, 
+        'liblinear' for Binary Classification, or 'auto' (Default) for automatic choice.
+        Defaults to 'auto'.
 
-    solver: liblinear/solver/auto
-        liblinear for Binary Classification  
-        saga for Catogirical Classification
-        auto for automaticly chooses (Default)  
-    
-    lr: learning_rate  
-        Default `0.01`
-    
-    Methords
-    --------
-    fit: function for fitting the model  
-        Parameters in function doc string
-    
-    predict: function for prediction after fitting  
+    lr : float, optional
+        Learning rate (step size). Default `0.01`.
 
-    Example
+    weights : np.array, optional
+        Initial weights for the model. If None, weights are initialized randomly.  
+
+    bias : float, optional
+        Initial bias for the model. If None, bias is initialized to 0.  
+
+    catogirical_model : list of LogisticRegression, optional
+        A list of pre-trained models used for categorical modeling (if solver='saga').
+        Defaults to [].
+
+    max_itr : int, optional
+        Maximum number of iterations for the gradient descent algorithm during fitting. 
+        Default is 3000.
+
+    hard_scale_off : bool, optional
+        If True, scaling will be ignored when fitting and predicting. Defaults to False.
+
+    Examples
     -------
     >>> from rslearn.linear_model import LogisticRegression
     >>> Model = LogisticRegression()
     >>> Model.fit(X, y)
     >>> pred = Model.predict(X_test)
-
-
+    >>> print(Model.evaluate(y_pred=pred, y_true=y_test))
+    >>> Model.save("my_classification_model.rsl") # will be saved as .rslc format
     """
 
     def __init__(self, solver="auto", lr = 0.001, weights : np.array= None, bias : float = None, catogirical_model : List[LogisticRegression] = [], max_itr : int =3000, hard_scale_off = False):
@@ -165,7 +172,7 @@ class LogisticRegression(BaseEstimator):
             self.weights, self.bias = Model.fit(weights=self.weights, bias=self.bias)
         
         else:
-            Model = _catogirical_fit(X=X, y=y, max_itr=self.max_itr)
+            Model = _catogirical_fit(X=X, y=y, max_itr=self.max_itr, weights=self.weights, bias=self.bias)
             Model.fit()
             self._cato_model = Model.models # Saving saga Model
             self.weights = np.array([0., 0.])
@@ -241,6 +248,15 @@ class LogisticRegression(BaseEstimator):
         return super()._eval(X=X, y_pred=y_pred, y_true=y_true)
     
     def save(self, file_name="rslearn_model.rsl"):
+        """
+       Saves the trained logistic regression model to a disk file in the '.rslc' format.
+    
+        Parameters:  
+            file_name (str): The name of the file where the model should be saved.  
+            Defaults to "rslearn_model.rsl".  
+                
+        NOTE: Model will save as binary file with ``.rslc`` regression format.
+        """
         super().save(file_name=file_name, solver=self.solver, catogirical_models=self._cato_model)
         
                 
@@ -287,10 +303,12 @@ class _binary_fit:
 
 # For Catogrical
 class _catogirical_fit:
-    def __init__(self, X, y, max_itr=1000):
+    def __init__(self, X, y, max_itr=1000, weights=None, bias=None):
         self.X = X
         self.y = y
         self.max_itr=max_itr
+        self.weights = weights
+        self.bias = bias
     
     def fit(self):
         X = self.X
@@ -299,7 +317,7 @@ class _catogirical_fit:
         self.classes = np.unique(y)
 
         for c in self.classes:
-            model = LogisticRegression(solver="liblinear", max_itr=self.max_itr)
+            model = LogisticRegression(solver="liblinear", max_itr=self.max_itr, weights=self.weights, bias=self.bias)
             y_bin = (y == c).astype(int)
             model.fit(X, y_bin)
             self.models.append(model)

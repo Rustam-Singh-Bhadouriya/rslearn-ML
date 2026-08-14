@@ -38,6 +38,9 @@ class KNNClassifier(BaseEstimatorKNN):
         Parameters:  
             k_neighbors: int  
                 Number of neighbors to consider for classification, default = 5  
+            
+            hard_scale_off : bool  
+                when ``True`` all scalers will be avoided, default = 5  
  
         Methods:  
             fit(X, y, scale=True)
@@ -66,7 +69,7 @@ class KNNClassifier(BaseEstimatorKNN):
             y: array-like of shape (n_samples,)
                 Target values for each sample during training.
             scale: bool, default=True
-                Whether to perform scaling on the input features before fitting.
+                Whether to perform scaling on the input features before fitting, ignored when ``hard_scale_off=True``  
         """
         X = np.asarray(X)
         y = np.asarray(y)

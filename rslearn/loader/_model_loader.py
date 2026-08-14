@@ -6,6 +6,7 @@ import numpy as np
     
 
 def load_logistic(file_path : str = "rslearn_model.rslc"):
+    """load_model helper to load LogisticRegression Model"""
     with open(file_path, "rb") as f:
         compressed = f.read()
 
@@ -57,7 +58,7 @@ def load_logistic(file_path : str = "rslearn_model.rslc"):
 
 
 def load_linear(file_path : str = "rslearn_model.rslr"):
-    
+    """load_model helper to load LinearRegression Models"""
     with open(file_path, "rb") as f:
         compressed = f.read()
 
@@ -94,6 +95,27 @@ def load_linear(file_path : str = "rslearn_model.rslr"):
     return model
 
 def load_model(file_path : str = "rslearn_model.rsl"):
+    """
+    Loads a machine learning model from a specified file path.
+
+    Supports loading models with extensions '.rslr' (linear regression)
+    and '.rslc' (logistic regression). If no extension is provided,
+    it defaults to 'rslearn_model.rsl'.
+
+    Args:
+        file_path (str): The path to the model file. Defaults to "rslearn_model.rsl".
+
+    Returns:
+        object: The loaded machine learning model (either linear or logistic).
+
+    Raises:
+        Error: If the file path is empty, or if the file extension is not
+               supported (must be '.rslr' or '.rslc').  
+    
+    Returns:
+        Pre-Trained Model: LinearRegression or LogisticRegression.  
+    """
+
     if len(file_path) == 0:
         raise Error(f"Invalid file_path, {file_path}")
     

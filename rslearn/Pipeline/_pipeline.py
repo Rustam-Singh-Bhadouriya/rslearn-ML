@@ -35,12 +35,6 @@ import numpy as np
 from rslearn.model_selection import train_test_split
 from rslearn.Errors import *
 from pprint import pprint
-import rslearn
-import json
-import gzip
-import random
-import warnings
-
 class pipeline:
     def __init__(self, params={}, validation_split=False, split_params={"test_size": 0.25, "random_state": 67, "stratify": None},):
         """
@@ -201,17 +195,20 @@ class pipeline:
             y=None,
             verbose=True
             ):
-            """ 
-            `fit` Method for pipeline
-
-            Function to Fit The Model
-
+            """
+            Function for fitting ``pipeline``
+    
             Parameters
             ----------
-            X: NxM metrics of `np.array` conatins The Feature to Train Model
+            X: feature set for model training
+                2D or 1D metrics | `np.array`, `DataFrame`  
             
-            y: Correct Output For X Metrics
-
+            y: correct value for X features set
+                1D array | `np.array`  
+    
+            verbose: print evaluations when splitting is allowed  
+                bool, default=True, effective only when ``validation_split=True``
+            
             Returns
             -------
             None
@@ -300,8 +297,10 @@ class pipeline:
             X: array-like of shape (n_samples, n_features), default=None
                 Input data to evaluate predictions on. If provided, model will generate
                 predictions and use them for evaluation.
+
             y_pred: array-like of shape (n_samples,), default=None
-                Predictions to use for evaluation. Only one of X or y_pred should be provided.
+                Predictions to use for evaluation. Only one of X or y_pred should be provided.  
+
             y_true: array-like of shape (n_samples,), default=None
                 True target values for evaluation.
         """
@@ -321,53 +320,6 @@ class pipeline:
 
         return self.Model.evaluate(y_pred=y_pred, y_true=y_true)
         
-
-    def save(self, file_name="rslearn_pipeline.prsl"):
-        if not(self.trained):
-            raise NotFittedError("Pipeline has not been fitted yet.")
-
-        if not(file_name.endswith(".prsl")):
-            raise Error("Pipeline Supports `.prsl` format.")
-        
-        file_id = random.randint(0, 1000000)
-        actual_model = self.Model._model
-        self.Model._model = f"pipeline_{self.Model._model}_{file_id}"
-        self.Model.save(f"pipeline_{actual_model}.rsl")
-        pipeline_data = {
-            "pipeline" : True,
-            "version" : rslearn.__version__,
-            "rslearn_compressed" : True,
-            "Model" : actual_model,
-            "model_id" : file_id,
-            "scaling" : self.scaling,
-            "scaler": self.Scaler.name,
-            "task" : self.Model.type,
-            "split" : self.split,
-            "split_params" : self.split_params
-        }
-
-        if pipeline_data["scaler"] == "MinMaxScaler":
-            pipeline_data["MinMaxScaler"] = {
-                "min": self.Scaler.min_v.tolist(),
-                "max" : self.Scaler.max_v.tolist(),
-                "a" : self.Scaler.a,
-                "b" : self.Scaler.b
-            }
-        else: # StandardScaler case
-            pipeline_data["StandardScaler"] = {
-                "mean" : self.Scaler.mean.tolist(),
-                "std" : self.Scaler.std.tolist()
-            }
-
-
-        json_bytes = json.dumps(pipeline_data).encode("utf-8")
-
-        compressed = gzip.compress(json_bytes)
-
-        with open(file_name, "wb") as f:
-            f.write(compressed)
-
-        return f"Pipeline & Model Saved Successfully with {file_name} & {self.Model._model}.rsl"
 
 
 
