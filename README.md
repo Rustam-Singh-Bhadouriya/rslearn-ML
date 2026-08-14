@@ -28,16 +28,6 @@
 # NOTE
 tests/* will be changed for each functions after documantation update.
 
-## 
-
-### Latest (linear_model): 
-* `save() & load_model()`
-* `more control over scaling with hard_scale_off=True`
-* `custom extension .rslr, .rslc, .prsl`  
-**NOTE: Docs, doc strings & Parameter Info will be changed in feature info.**
-
-More Info: [CHANGELOG](CHANGELOG.md)  
-
 
 ## Download Version Specific Module
 ***[Downloads - Module](download.md)***

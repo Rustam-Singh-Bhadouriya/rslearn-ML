@@ -12,6 +12,8 @@ All notable changes to this project will be documented in this file.
 * added github version info, `rslearn.__github_version__`
 * Implemented `evaluate_model()` info=[docs](rslearn/metrics/evaluations.md)
 
+## `evaluate_model()` supports all Models as parameters expect TensorFlow, keras & PyTorch and Thier Tensors also.
+
 ### Feature/ref/fix/doc - 1.0.9
 * Model Saving among all `linear_model` family.
 * Class refactor with BaseEstimator Classes (neighbors, linear_model)
