@@ -1,6 +1,6 @@
 [project]
 name = "rslearn-py"
-version = "1.0.3"
+version = "1.0.4"
 description = "A simple sklearn-like ML library built from scratch"
 readme = "README.md"
 authors = [
@@ -34,10 +34,3 @@ include-package-data = true
 where = ["."]
 include = ["rslearn*"]
 exclude = ["tests*"]
-
-# ---------------------------
-# OPTIONAL (nice for later CLI tools)
-# ---------------------------
-
-# [project.scripts]
-# rslearn = "rslearn.cli:main"
