@@ -8,6 +8,7 @@
 ![Contributions](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
 
 ---
+# Library's v1.0.4 haven't released yet on pypi so dont use given snippets for now. Docs are coming soon. 
 
 ## ✨ Why rslearn?
 
@@ -210,6 +211,7 @@ from rslearn.linear_model import LinearRegression
 import numpy as np
 
 print(rslearn.__version__)
+print(rslearn.__github_version__)
 X = np.array([10, 20, 30])
 y = np.array([5, 10, 15])
 
