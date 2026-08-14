@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [1.1.0 - v1.0.4] - 2026-07-14
+## [1.1.0 - v1.0.4] - 2026-08-14
 
 ### Feature/ref/fix/doc - 1.1.0
 * Doc Update according new changes, README.md under folders  
