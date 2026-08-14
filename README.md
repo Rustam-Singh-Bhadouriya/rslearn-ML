@@ -22,7 +22,7 @@
 
 ## Release & Changes
 * **Version : 1.1.0 - 1.0.4** 
-* **Release Date: 2026-06-26**
+* **Release Date: 2026-08-14**
 * [CHANGELOG](CHANGELOG.md)
 
 # NOTE
