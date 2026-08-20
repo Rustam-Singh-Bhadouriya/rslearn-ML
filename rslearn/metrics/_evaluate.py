@@ -81,7 +81,7 @@ if __name__ == "__main__":
     X = np.random.uniform(2, 10, size=(500, 4)) # 500 rows & 4 columns
     our_weights = np.array([1.3, 2.1, 1.7, 1.8])
     our_bias = 2.45
-    y = X * our_weights + our_bias
+    y = np.sum((X * our_weights + our_bias), axis=1)
 
     # Testing On Sklearn 'cause rslearn-py already contains model.evaluate() doin' same thing.
     from sklearn.linear_model import LinearRegression
@@ -97,5 +97,7 @@ if __name__ == "__main__":
     # Make work easier
 
     evaluations = evaluate_model(model=model, X=X_test, y_true=y_test, task="regression") # It doesn't need task 'cause default=regression
-    print(f"Predictions: {evaluations["preditions"]}")
+    print(f"Predictions: {evaluations["prediction"]}")
     print(f"Evaluations: {evaluations["evaluation"]}")
+
+    # Evaluations Made Easy!
