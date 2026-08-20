@@ -75,3 +75,29 @@ def evaluate_model(model=None, X=None, y_pred=None, y_true=None, task="regressio
     """
     return evals_params(model=model, X=X, y_pred=y_pred, y_true=y_true, task=task)
 
+if __name__ == "__main__":
+    # DEBUG SESSION
+    np.random.seed(67)
+    X = np.random.uniform(2, 10, size=(500, 4)) # 500 rows & 4 columns
+    our_weights = np.array([1.3, 2.1, 1.7, 1.8])
+    our_bias = 2.45
+    y = np.sum((X * our_weights + our_bias), axis=1)
+
+    # Testing On Sklearn 'cause rslearn-py already contains model.evaluate() doin' same thing.
+    from sklearn.linear_model import LinearRegression
+    model = LinearRegression()
+
+    from rslearn.model_selection import train_test_split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
+
+    # fitting model
+    model.fit(X_train, y_train)
+
+    # evaluations & predictions at once
+    # Make work easier
+
+    evaluations = evaluate_model(model=model, X=X_test, y_true=y_test, task="regression") # It doesn't need task 'cause default=regression
+    print(f"Predictions: {evaluations["prediction"]}")
+    print(f"Evaluations: {evaluations["evaluation"]}")
+
+    # Evaluations Made Easy!

@@ -1,6 +1,6 @@
 [project]
 name = "rslearn-py"
-version = "1.0.4"
+version = "1.0.5"
 description = "A simple sklearn-like ML library built from scratch"
 readme = "README.md"
 authors = [

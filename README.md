@@ -21,8 +21,8 @@
 ---
 
 ## Release & Changes
-* **Version : 1.1.0 - 1.0.4** 
-* **Release Date: 2026-08-14**
+* **Version : 1.1.1 - 1.0.5** 
+* **Release Date: 2026-08-20**
 * [CHANGELOG](CHANGELOG.md)
 
 # NOTE
