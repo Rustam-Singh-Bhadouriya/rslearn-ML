@@ -30,7 +30,7 @@ Example:
 
 - Without scaling, the model may converge slowly or produce suboptimal results.
 """
-
+from __future__ import annotations
 import numpy as np
 from rslearn.BaseEstimators import _base
 from rslearn.preprocessing import StandardScaler
