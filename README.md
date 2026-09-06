@@ -248,6 +248,15 @@ Good For `Developers` & `Contributors`
 ## 🔨 Origination
 **rslearn-lib**
 
+```bash
+@software{rslearnML,
+  author = {Rustam Bhadouriya (ItzRustam)},
+  year = {2026},
+  title = {rslearn-ML: A Lightweight Machine Learning Library Built from Scratch},
+  url = {https://github.com/ItzRustam/rslearn-ML}
+}
+```
+
 ---
 
 ## 📜 License
