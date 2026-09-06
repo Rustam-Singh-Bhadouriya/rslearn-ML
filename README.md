@@ -251,6 +251,7 @@ Good For `Developers` & `Contributors`
 ```bash
 @software{rslearnML,
   author = {Rustam Bhadouriya (ItzRustam)},
+  publisher = {rslearn-lib}
   year = {2026},
   title = {rslearn-ML: A Lightweight Machine Learning Library Built from Scratch},
   url = {https://github.com/ItzRustam/rslearn-ML}
